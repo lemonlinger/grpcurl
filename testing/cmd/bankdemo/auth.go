@@ -34,7 +34,9 @@ func getAuthCode(ctx context.Context) string {
 	if !ok {
 		return ""
 	}
-	vals := md.Get("authorization")
+	//vals := md.Get("authorization")
+	_ = md
+	vals := []string{}
 	if len(vals) != 1 {
 		return ""
 	}

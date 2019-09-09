@@ -25,8 +25,8 @@ import (
 	reflectpb "google.golang.org/grpc/reflection/grpc_reflection_v1alpha"
 	"google.golang.org/grpc/status"
 
-	. "github.com/fullstorydev/grpcurl"
-	grpcurl_testing "github.com/fullstorydev/grpcurl/testing"
+	. "github.com/lemonlinger/grpcurl"
+	grpcurl_testing "github.com/lemonlinger/grpcurl/testing"
 )
 
 var (

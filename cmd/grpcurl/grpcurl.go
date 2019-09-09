@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fullstorydev/grpcurl"
+	"github.com/lemonlinger/grpcurl"
 	descpb "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/grpcreflect"

@@ -14,7 +14,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"net"
 	"sort"
 	"strings"
 
@@ -22,7 +21,7 @@ import (
 	descpb "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/golang/protobuf/ptypes/struct"
+	structpb "github.com/golang/protobuf/ptypes/struct"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/desc/protoprint"
 	"github.com/jhump/protoreflect/dynamic"
@@ -573,21 +572,21 @@ func BlockingDial(ctx context.Context, network, address string, creds credential
 		}
 	}
 
-	dialer := func(ctx context.Context, address string) (net.Conn, error) {
-		conn, err := (&net.Dialer{}).DialContext(ctx, network, address)
-		if err != nil {
-			writeResult(err)
-			return nil, err
-		}
-		if creds != nil {
-			conn, _, err = creds.ClientHandshake(ctx, address, conn)
-			if err != nil {
-				writeResult(err)
-				return nil, err
-			}
-		}
-		return conn, nil
-	}
+	// dialer := func(ctx context.Context, address string) (net.Conn, error) {
+	// 	conn, err := (&net.Dialer{}).DialContext(ctx, network, address)
+	// 	if err != nil {
+	// 		writeResult(err)
+	// 		return nil, err
+	// 	}
+	// 	if creds != nil {
+	// 		conn, _, err = creds.ClientHandshake(ctx, address, conn)
+	// 		if err != nil {
+	// 			writeResult(err)
+	// 			return nil, err
+	// 		}
+	// 	}
+	// 	return conn, nil
+	// }
 
 	// Even with grpc.FailOnNonTempDialError, this call will usually timeout in
 	// the face of TLS handshake errors. So we can't rely on grpc.WithBlock() to
@@ -597,7 +596,6 @@ func BlockingDial(ctx context.Context, network, address string, creds credential
 		opts = append(opts,
 			grpc.WithBlock(),
 			grpc.FailOnNonTempDialError(true),
-			grpc.WithContextDialer(dialer),
 			grpc.WithInsecure(), // we are handling TLS, so tell grpc not to
 		)
 		conn, err := grpc.DialContext(ctx, address, opts...)
