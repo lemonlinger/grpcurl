@@ -12,7 +12,6 @@ import (
 	"time"
 
 	"github.com/golang/protobuf/jsonpb"
-	jsonpbtest "github.com/golang/protobuf/jsonpb/jsonpb_test_proto"
 	"github.com/golang/protobuf/proto"
 	"github.com/jhump/protoreflect/desc"
 	"github.com/jhump/protoreflect/grpcreflect"
@@ -27,6 +26,7 @@ import (
 
 	. "github.com/lemonlinger/grpcurl"
 	grpcurl_testing "github.com/lemonlinger/grpcurl/testing"
+	jsonpbtest "github.com/lemonlinger/grpcurl/testing/jsonpb_test_proto"
 )
 
 var (
